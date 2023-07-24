@@ -72,4 +72,4 @@ async function updateDetails(current, info) {
   }
 }
 
-queryDB(updateData)
+queryDB(updateData);
