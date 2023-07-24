@@ -1,7 +1,9 @@
 import inquirer from "inquirer";
 import fs from "fs";
+import queryDB from "./query"
+import dbFileCheck from "./dbFileCheck.js";
 import { v4 as uuidv4 } from "uuid";
-import queryDB from "./queryDB.js";
+
 
 
 

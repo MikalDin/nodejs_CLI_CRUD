@@ -1,72 +1,74 @@
 import inquirer from "inquirer";
-import  fs  from "fs";
+import fs from "fs";
 import queryDB from "./queryDB.js";
 import dbFileCheck from "./dbFileCheck.js";
-import { error } from "console";
 
 export default async function updateData(info) {
-    dbFileCheck();
+  dbFileCheck();
 
-    try {
-        const answers = await inquirer.prompt([
-            { type: "input", name: "id", message: "Please Enter record ID" },
-        ]);
-        let user;
-        info.forEach(element => {
-            if (element.id === recordID) {
-                user = element;
-                updateDetails(user, info);
+  try {
+    const answers = await inquirer.prompt([
+      {
+        type: "input",
+        name: "recordID",
+        message: "Enter Record ID",
+      },
+    ]);
 
-            }
-        });
-    } catch (error) {
-        console.log("Soemething went wrong!", error);
-             }
-        }
+    let current;
 
+    info.forEach((element) => {
+      if (element.id === answers.recordID) {
+        current = element;
 
-async function updateDetails(user, info) {
-    try {
-        const feedback = await inquirer.prompt([
+        updateDetails(current, info);
+      }
+    });
+  } catch (error) {
+    console.log("Something went wrong!", error);
+  }
+}
 
-     { 
-            type: "input", 
-            name: "name", 
-            default: user.Name, 
-            message: "Please Enter Your Name:",
-        },
-    { 
-            type: "number", 
-            name: "phone", 
-            default: user.Phone, 
-            message: "Please Enter YOur Number?",
-            },
-            
-          {
-                type: "list",
-                name: "age",
-                default: user.Age,
-            message: "Are you an adult?",
-                choices: [
-                    { name: "Y", value: "Adult" },
-                    { name: "N", value: "Minor" },
-                ],
-            },
-        ]);
-            user.Name = feedback.name;
-            user.Phone = feedback.phone;
-            user.Age = feedback.age;
-            
-            await fs.writFile("db.json", JSON.stringify(info), function(err){
-                    if (error)  {
-                     console.log(" Error updating database");   
-                    }
+async function updateDetails(current, info) {
+  try {
+    const feedbacks = await inquirer.prompt([
+      {
+        type: "input",
+        default: current.name,
+        name: "name",
+        message: "What's your name?",
+      },
+      {
+        type: "number",
+        default: current.phone,
+        name: "phone",
+        message: "What's your phone?",
+      },
+      {
+        type: "list",
+        default: current.age,
+        name: "age",
+        message: "Are an adult?",
+        choices: [
+          { name: "Y", value: "Adult" },
+          { name: "N", value: "Minor" },
+        ],
+      },
+    ]);
 
-            console.log("Updated Successfully");
-                    });
-        } catch (error) {
-        console.log("Something went wrong!", error);
-        }
-    }
-    queryDB(updateData)
+    current.name = feedbacks.name;
+    current.phone = feedbacks.phone;
+    current.age = feedbacks.age;
 
+    await fs.writeFile("db.json", JSON.stringify(info), function (err) {
+      if (err) {
+        console.log(err);
+      }
+      console.log("updated");
+    });
+  } catch (error) {
+    console.log("Something went wrong!", error);
+  }
+}
+
+queryDB(updateData)
