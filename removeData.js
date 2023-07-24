@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import fs from "fs";
 import queryDB from "./queryDB.js";
-import dbFileCheck from "./dbFileCheck";
+import dbFileCheck from "./dbFileCheck.js";
 
 export default async function removeData(info) {
     dbFileCheck();
@@ -17,7 +17,7 @@ export default async function removeData(info) {
 
         let remnantData = [];
         info.forEach((element) => {
-            if (element.id !== recordID) {
+            if (element.id !== answers.recordID) {
                 remnantData.push(element)
             
             }

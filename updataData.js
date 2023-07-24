@@ -2,6 +2,7 @@ import inquirer from "inquirer";
 import fs from "fs";
 import queryDB from "./queryDB.js";
 import dbFileCheck from "./dbFileCheck.js";
+//import { error } from "console";
 
 export default async function updateData(info) {
   dbFileCheck();
@@ -34,20 +35,20 @@ async function updateDetails(current, info) {
     const feedbacks = await inquirer.prompt([
       {
         type: "input",
-        default: current.name,
+        default: current.Name,
         name: "name",
         message: "What's your name?",
       },
       {
         type: "number",
-        default: current.phone,
+        default: current.Phone,
         name: "phone",
         message: "What's your phone?",
       },
       {
         type: "list",
-        default: current.age,
         name: "age",
+        default: user.Age,
         message: "Are an adult?",
         choices: [
           { name: "Y", value: "Adult" },
@@ -61,7 +62,7 @@ async function updateDetails(current, info) {
     current.age = feedbacks.age;
 
     await fs.writeFile("db.json", JSON.stringify(info), function (err) {
-      if (err) {
+      if (error) {
         console.log(err);
       }
       console.log("updated");
