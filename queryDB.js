@@ -6,13 +6,13 @@ export default async function queryDB(externalFunction) {
 
         if (fs.existsSync("db.json")){
             await fs.readFile("db.json", function (error,data){
+                info = JSON.parse(data.toString());
+                    console.log(info);
+
                     if(error) {
                         console.log("Reading File Failed", error);
                         return;
-
                     }
-                info = JSON.parse(data.toString());
-                console.log(info);
                 
                     if(externalFunction && !error) {
                         externalFunction(info);

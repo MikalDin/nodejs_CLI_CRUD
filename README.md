@@ -5,7 +5,7 @@ The CLI app can update, delete, add and retrieve data. The data created is saved
 Instructions:
 to add information: node addData.js
 to see the current database: node retrieveData.js
-to delete imformation from database: node removeData 
+to delete imformation from database: node removeData  
 
 ##npm scripts / dev dependencies
 "test": "jest"

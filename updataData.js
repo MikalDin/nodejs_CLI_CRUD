@@ -8,12 +8,12 @@ export default async function updateData(info) {
     dbFileCheck();
 
     try {
-        const answer = await inquirer.prompt([
+        const answers = await inquirer.prompt([
             { type: "input", name: "id", message: "Please Enter record ID" },
         ]);
         let user;
         info.forEach(element => {
-            if (element.id === answer.id) {
+            if (element.id === recordID) {
                 user = element;
                 updateDetails(user, info);
 
