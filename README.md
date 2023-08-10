@@ -1,4 +1,4 @@
-## CLI inventory Project
+## Mikky's CLI inventory Project
 
 //**The CLI app can update, delete, add and retrieve data. The data created is *saved in the 'db.json' file. No need for external database with this app in *current form.
 
